@@ -7,15 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+// Spring Security
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.book.model.dto.UserDTO;
-import com.book.model.entity.User;
 import com.book.security.common.SecurityConstants;
 import com.book.security.jwt.JWTTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebFilter
 public class UsernamePasswordAuthenticationFilterImpl extends UsernamePasswordAuthenticationFilter {
 
-	private static AuthenticationManager authenticationManager;
+	private AuthenticationManager authenticationManager;
 	
 
 	public UsernamePasswordAuthenticationFilterImpl(AuthenticationManager authenticationManager) {

@@ -17,19 +17,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.book.controller.abstracts.BaseController;
 import com.book.model.dto.UserDTO;
-import com.book.model.entity.User;
 import com.book.model.enumerated.UserRole;
 import com.book.security.common.SecurityConstants;
 import com.book.security.jwt.JWTTokenProvider;
 import com.book.service.UserService;
+import com.book.service.converters.UserConverter;
+import com.book.service.utils.Checker;
 import com.book.service.utils.EmailServiceImpl;
 
 @RestController
 @RequestMapping(path = "/user")
-public class userController extends BaseController<User, UserDTO, UserService>{
+public class userController {
 
+	@Autowired
+	protected Checker checker;
+
+	@Autowired
+	protected UserService service;
+	
+	@Autowired
+	protected UserConverter converter;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -41,14 +50,14 @@ public class userController extends BaseController<User, UserDTO, UserService>{
 		ResponseEntity<?> response = null;
 				
 		try {
-			if (super.checker.checkRegister(user)) {
+			if (checker.checkRegister(user)) {
 				String activationCode = UUID.randomUUID().toString().substring(0, 8);
 				user.setActivationCode(activationCode);
 				user.setEnableAccount(false);
 				user.setRoles(Set.of(UserRole.USER));
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
 				
-				user = super.service.save(user);
+				user = service.save(user);
 
 				response = ResponseEntity.status(HttpStatus.OK).body("Correcto");				
 			}
@@ -69,16 +78,16 @@ public class userController extends BaseController<User, UserDTO, UserService>{
 		
 		try {
 			
-			if (super.checker.checkActivationCode(dataReceived)) {
+			if (checker.checkActivationCode(dataReceived)) {
 				
-				user = super.service.findById(dataReceived.getId());
+				user = service.findById(dataReceived.getId());
 				
 				if (user.getActivationCode().equals(dataReceived.getActivationCode())) {
 				
 					user.setActivationCode(null);
 					user.setEnableAccount(true);
 					
-					user = super.service.edit(user);
+					user = service.edit(user);
 				}
 			}
 			
@@ -104,7 +113,7 @@ public class userController extends BaseController<User, UserDTO, UserService>{
 	public ResponseEntity<?> signIn(@RequestBody UserDTO user) {
 		ResponseEntity<?> response = null;
 		try {
-			if (super.checker.checkLogin(user)) {
+			if (checker.checkLogin(user)) {
 				response = ResponseEntity.status(HttpStatus.OK).body("Done");
 			}
 		} catch (Exception ex) {
