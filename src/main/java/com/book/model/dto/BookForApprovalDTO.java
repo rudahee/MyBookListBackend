@@ -1,40 +1,28 @@
 package com.book.model.dto;
 
 import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
-public class BookDTO {
-	
+public class BookForApprovalDTO {
+
 	private Long id;
 	private String name;
 	private String description;
+	private Integer pages;
 	private String imageUrl;
 	private String isbn;
 	private String publisher;
 	private LocalDateTime publishDate;
-	private Integer pages;
+	private String notes;
+	private String references1;
+	private String references2;
 	private String sagaName;
-	private Integer sagaTotalBooks;
-	private Integer orderInSaga;
+	private String authorName;
 	
-	public BookDTO() {
+	public BookForApprovalDTO() {
 		super();
-	}
-
-	public BookDTO(Long id, String name, String description, String imageUrl, String isbn, String publisher,
-			LocalDateTime publishDate, Integer pages) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.imageUrl = imageUrl;
-		this.isbn = isbn;
-		this.publisher = publisher;
-		this.publishDate = publishDate;
-		this.pages = pages;
 	}
 
 	public Long getId() {
@@ -59,6 +47,14 @@ public class BookDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Integer getPages() {
+		return pages;
+	}
+
+	public void setPages(Integer pages) {
+		this.pages = pages;
 	}
 
 	public String getImageUrl() {
@@ -93,12 +89,28 @@ public class BookDTO {
 		this.publishDate = publishDate;
 	}
 
-	public Integer getPages() {
-		return pages;
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setPages(Integer pages) {
-		this.pages = pages;
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public String getReferences1() {
+		return references1;
+	}
+
+	public void setReferences1(String references1) {
+		this.references1 = references1;
+	}
+
+	public String getReferences2() {
+		return references2;
+	}
+
+	public void setReferences2(String references2) {
+		this.references2 = references2;
 	}
 
 	public String getSagaName() {
@@ -109,20 +121,12 @@ public class BookDTO {
 		this.sagaName = sagaName;
 	}
 
-	public Integer getSagaTotalBooks() {
-		return sagaTotalBooks;
+	public String getAuthorName() {
+		return authorName;
 	}
 
-	public void setSagaTotalBooks(Integer sagaTotalBooks) {
-		this.sagaTotalBooks = sagaTotalBooks;
-	}
-
-	public Integer getOrderInSaga() {
-		return orderInSaga;
-	}
-
-	public void setOrderInSaga(Integer orderInSaga) {
-		this.orderInSaga = orderInSaga;
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 	
 }

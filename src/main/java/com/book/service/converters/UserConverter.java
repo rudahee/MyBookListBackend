@@ -46,7 +46,7 @@ public class UserConverter extends DtoConverter<User, UserDTO> {
 		dto.setCreateTime(entity.getCreateTime());
 		dto.setUpdateTime(entity.getUpdateTime());
 		dto.setActivationCode(entity.getActivationCode());
-		
+
 		return dto;
 	}
 

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,6 +25,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.book.model.entity.Customer.Customer;
 import com.book.model.enumerated.UserRole;
 
 @Entity
@@ -72,11 +75,9 @@ public class User implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Set<UserRole> roles;
 	
-	/*
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 	private Customer customer;
-	*/
+	
 	public User() {
 		super();
 		this.setEnableAccount(false);
@@ -92,6 +93,14 @@ public class User implements UserDetails {
 		this.createTime = LocalDateTime.now();
 		this.updateTime = LocalDateTime.now();
 		this.deleteTime = LocalDateTime.now().plusYears(20);	
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Long getId() {

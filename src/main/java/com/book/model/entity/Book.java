@@ -1,12 +1,28 @@
 package com.book.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.book.model.entity.Customer.AuthorCustomer;
+import com.book.model.entity.Relationship.BookUserCustomer;
+import com.book.model.enumerated.Genre;
 
 
 @Entity
@@ -15,15 +31,14 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
-	
 	@Column(nullable=false)
 	private String name;
-	@Column(nullable=false)
-	private String description;
 	
+	@Lob
+	@Column(columnDefinition = "text", length=8192, nullable=false)
+	private String description;
 	@Column(nullable=false)
 	private String imageUrl;
-	
 	@Column(nullable=false, unique=true)
 	private String isbn;
 	@Column(nullable=false)
@@ -32,13 +47,27 @@ public class Book {
 	private LocalDateTime publishDate;
 	
 	private Integer pages;
-	
-	//private List<AuthorCustomer> author;
 
-	//private Saga saga;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
+	private List<Genre> genre;
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "books")
+	private List<AuthorCustomer> author;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="saga_id", nullable=true)
+	private Saga saga;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL)
+	private List<BookUserCustomer> users;
+	
 	
 	public Book() {
 		super();
+		users = new ArrayList<BookUserCustomer>();
+		author = new ArrayList<AuthorCustomer>();
+		genre = new ArrayList<Genre>();
 	}
 
 	public Book(String name, String description, String imageUrl, String isbn, String publisher,
@@ -51,6 +80,9 @@ public class Book {
 		this.publisher = publisher;
 		this.publishDate = publishDate;
 		this.pages = pages;
+		users = new ArrayList<BookUserCustomer>();
+		author = new ArrayList<AuthorCustomer>();
+		genre = new ArrayList<Genre>();
 	}
 
 	public Long getId() {
@@ -117,4 +149,47 @@ public class Book {
 		this.pages = pages;
 	}
 	
+	public Saga getSaga() {
+		return saga;
+	}
+
+	public void setSaga(Saga saga) {
+		this.saga = saga;
+	}
+
+	public List<BookUserCustomer> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<BookUserCustomer> users) {
+		this.users = users;
+	}
+	
+	public void addUser(BookUserCustomer user) {
+		this.users.add(user);
+	}
+	
+	public List<AuthorCustomer> getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(List<AuthorCustomer> author) {
+		this.author = author;
+	}
+	
+	public void addAuthor(AuthorCustomer author) {
+		this.author.add(author);
+	}
+	
+	public void AddAllAuthors(List<AuthorCustomer> authors) {
+		this.author.addAll(authors);
+	}
+	
+	public List<Genre> getGenre() {
+		return genre;
+	}
+	
+	public void setGenre(List<Genre> genre) {
+		this.genre = genre;
+	}
 }

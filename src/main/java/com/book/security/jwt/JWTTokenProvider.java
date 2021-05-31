@@ -8,9 +8,11 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.book.exception.JwtException;
 import com.book.model.entity.User;
 import com.book.model.enumerated.UserRole;
 import com.book.security.common.SecurityConstants;
+import com.book.security.error.BodyErrorCode;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Header;
@@ -40,22 +42,22 @@ public class JWTTokenProvider {
 				.compact();
 	}
 	
-	public static boolean validateToken(String token) {
+	public static boolean validateToken(String token) throws JwtException {
 		boolean valid = false;
 		
 		try {
 			Jwts.parser().setSigningKey(getKey()).parseClaimsJws(token);
 			valid = true;
 		} catch (SignatureException ex) {
-			System.out.println("Token Signature not valid: " + token);
+			throw new JwtException(BodyErrorCode.TOKEN_NOT_VALID);
 		} catch (MalformedJwtException ex) {
-			System.out.println("Token Malformed:" + token);
+			throw new JwtException(BodyErrorCode.TOKEN_NOT_VALID);
 		} catch (ExpiredJwtException ex) {
-			System.out.println("Expired Token: " + token);
+			throw new JwtException(BodyErrorCode.TOKEN_EXPIRED);
 		} catch (UnsupportedJwtException ex) {
-			System.out.println("Unsoppored token: " + token);
+			throw new JwtException(BodyErrorCode.TOKEN_NOT_VALID);
 		} catch (IllegalArgumentException ex) {
-			System.out.println("Illegal Arguments in Token: " + token);
+			throw new JwtException(BodyErrorCode.TOKEN_NOT_VALID);
 		}
 		
 		return valid;

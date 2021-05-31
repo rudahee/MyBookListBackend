@@ -20,7 +20,8 @@ public class CustomSecurityEntryPoint implements AuthenticationEntryPoint {
 		
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		response.setContentType("application/text");
-		response.getWriter().print(authException.getMessage());
+		
+		response.getWriter().append(authException.getMessage());
 		
 		response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
 

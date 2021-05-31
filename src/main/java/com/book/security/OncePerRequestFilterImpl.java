@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.book.exception.JwtException;
 import com.book.model.entity.User;
 import com.book.security.common.SecurityConstants;
 import com.book.security.jwt.JWTTokenProvider;
@@ -41,16 +42,22 @@ public class OncePerRequestFilterImpl extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
-
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
-        //ToDo 
-        //Manage exceptions
-        authentication.setDetails(new WebAuthenticationDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        UsernamePasswordAuthenticationToken authentication;
+        
+        try {
+        	authentication = getAuthentication(request);        	
+        	authentication.setDetails(new WebAuthenticationDetails(request));
+        	SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (JwtException e) {
+         	logger.info("OncePerRequest - JWT: " + e.getCode());
+   		}
+        
+        
         chain.doFilter(request, response);
 	}
 	
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) throws JwtException {
         String token = request.getHeader(SecurityConstants.TOKEN_HEADER).replace(SecurityConstants.TOKEN_PREFIX, "");
         UsernamePasswordAuthenticationToken upat = null;
         
@@ -64,11 +71,11 @@ public class OncePerRequestFilterImpl extends OncePerRequestFilter {
         	
 				User user = (User) userService.loadUserById(idUser);
 				if (idUser != null) {
-					upat=  new UsernamePasswordAuthenticationToken(idUser, user.getRoles(), user.getAuthorities());
+					upat = new UsernamePasswordAuthenticationToken(idUser, user.getRoles(), user.getAuthorities());
 				}
 			} catch (AuthenticationException e) {
 				throw new RuntimeException("No user identifier has been found in the request");
-			}
+			} 
         }
         return upat;	
     }

@@ -1,9 +1,12 @@
 package com.book.service.converters;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.book.model.dto.BookDTO;
 import com.book.model.entity.Book;
+import com.book.model.entity.Saga;
 import com.book.service.abstracts.DtoConverter;
 
 @Service
@@ -27,6 +30,7 @@ public class BookConverter extends DtoConverter<Book, BookDTO> {
 	@Override
 	public BookDTO fromEntity(Book entity) {
 		BookDTO dto = new BookDTO();
+		
 		dto.setDescription(entity.getDescription());
 		dto.setId(entity.getId());
 		dto.setImageUrl(entity.getImageUrl());
@@ -35,6 +39,19 @@ public class BookConverter extends DtoConverter<Book, BookDTO> {
 		dto.setPages(entity.getPages());
 		dto.setPublishDate(entity.getPublishDate());
 		dto.setPublisher(entity.getPublisher());
+		
+		Saga saga = entity.getSaga();
+		
+		if (saga != null) {
+			dto.setSagaName(saga.getName());
+			dto.setSagaTotalBooks(saga.getBooks().size());
+			dto.setOrderInSaga(
+				saga.getBooks().stream()
+					.map(book -> book.getName())
+					.collect(Collectors.toList())
+					.indexOf(entity.getName())
+			);
+		}
 		
 		return dto;
 	}
