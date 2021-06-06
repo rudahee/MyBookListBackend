@@ -1,4 +1,4 @@
-package com.book.model.entity.Customer;
+package com.book.model.entity.customer;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
-import com.book.model.entity.Book;
+import com.book.model.entity.book.Book;
 
 @SuppressWarnings("serial")
 @Entity

@@ -13,7 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.book.model.dto.UserDTO;
+
+import com.book.model.dto.users.UserDTO;
 import com.book.security.common.SecurityConstants;
 import com.book.security.jwt.JWTTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,8 +38,6 @@ public class UsernamePasswordAuthenticationFilterImpl extends UsernamePasswordAu
 		UserDTO user = null;
 		try {
 			user = new ObjectMapper().readValue(request.getInputStream(), UserDTO.class);
-			
-
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

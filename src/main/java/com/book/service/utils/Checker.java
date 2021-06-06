@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.book.exception.BookManagementException;
 import com.book.exception.UserManagementException;
-import com.book.model.dto.BookDTO;
-import com.book.model.dto.UserDTO;
-import com.book.security.error.BodyErrorCode;
+import com.book.model.dto.books.BookDTO;
+import com.book.model.dto.users.UserDTO;
+import com.book.model.enumerated.BodyErrorCode;
 
 @Service
 public class Checker {

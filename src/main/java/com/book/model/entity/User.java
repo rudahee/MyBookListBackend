@@ -25,7 +25,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.book.model.entity.Customer.Customer;
+import com.book.model.entity.customer.Customer;
+import com.book.model.enumerated.Gender;
 import com.book.model.enumerated.UserRole;
 
 @Entity
@@ -74,6 +75,9 @@ public class User implements UserDetails {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private Set<UserRole> roles;
+	
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 	private Customer customer;
@@ -261,6 +265,14 @@ public class User implements UserDetails {
 
 	public void setActivationCode(String activationCode) {
 		this.activationCode = activationCode;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 	
 }

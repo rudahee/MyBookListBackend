@@ -3,7 +3,7 @@ package com.book.service.converters;
 import org.springframework.stereotype.Service;
 
 import com.book.model.dto.FriendshipDTO;
-import com.book.model.entity.Relationship.Friendship;
+import com.book.model.entity.relationship.Friendship;
 import com.book.service.abstracts.DtoConverter;
 
 @Service

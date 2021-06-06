@@ -1,6 +1,6 @@
-package com.book.model.entity.Relationship;
+package com.book.model.entity.relationship;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.book.model.entity.Book;
-import com.book.model.entity.Customer.UserCustomer;
+import com.book.model.entity.book.Book;
+import com.book.model.entity.customer.UserCustomer;
 import com.book.model.enumerated.Status;
 
 @Entity
@@ -41,7 +41,7 @@ public class BookUserCustomer {
 	
 	private Integer pagesReaded;
 	
-	private LocalDateTime date;
+	private Date date;
 	
 	public BookUserCustomer() {
 		super();
@@ -115,11 +115,11 @@ public class BookUserCustomer {
 		this.pagesReaded = pagesReaded;
 	}
 
-	public LocalDateTime getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 }

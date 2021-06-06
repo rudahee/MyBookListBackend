@@ -20,7 +20,7 @@ import com.book.exception.JwtException;
 import com.book.model.entity.User;
 import com.book.security.common.SecurityConstants;
 import com.book.security.jwt.JWTTokenProvider;
-import com.book.service.UserService;
+import com.book.service.entity.users.UserService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

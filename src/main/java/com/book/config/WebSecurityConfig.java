@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.book.security.OncePerRequestFilterImpl;
 import com.book.security.UsernamePasswordAuthenticationFilterImpl;
 import com.book.security.error.CustomSecurityEntryPoint;
-import com.book.service.UserService;
+import com.book.service.entity.users.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -53,9 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/user/sign-up").permitAll()
-				.antMatchers(HttpMethod.POST, "/user/sign-in").permitAll()
-				.antMatchers(HttpMethod.PUT, "/user/activate").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/sign-in").permitAll()
+				.antMatchers(HttpMethod.PUT, "/auth/activate").permitAll()
 				.antMatchers(HttpMethod.GET, "/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/user/me").authenticated()
 				.antMatchers(HttpMethod.POST, "/book").authenticated()

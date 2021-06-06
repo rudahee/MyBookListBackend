@@ -1,4 +1,4 @@
-package com.book.model.entity.Customer;
+package com.book.model.entity.customer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.book.model.entity.Relationship.BookUserCustomer;
-import com.book.model.entity.Relationship.Friendship;
+import com.book.model.entity.relationship.BookUserCustomer;
+import com.book.model.entity.relationship.Friendship;
 
 @SuppressWarnings("serial")
 @Entity	

@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.book.model.entity.book.Book;
+
 @Entity
 public class Saga {
 	

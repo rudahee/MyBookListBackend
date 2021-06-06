@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.book.exception.JwtException;
 import com.book.model.entity.User;
+import com.book.model.enumerated.BodyErrorCode;
 import com.book.model.enumerated.UserRole;
 import com.book.security.common.SecurityConstants;
-import com.book.security.error.BodyErrorCode;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Header;

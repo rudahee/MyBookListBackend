@@ -1,4 +1,4 @@
-package com.book.model.entity.Relationship;
+package com.book.model.entity.relationship;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.book.model.entity.Customer.UserCustomer;
+import com.book.model.entity.customer.UserCustomer;
 
 @SuppressWarnings("serial")
 @Entity

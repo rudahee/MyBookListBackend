@@ -2,7 +2,7 @@ package com.book.service.converters;
 
 import org.springframework.stereotype.Service;
 
-import com.book.model.dto.SagaDTO;
+import com.book.model.dto.books.SagaDTO;
 import com.book.model.entity.Saga;
 import com.book.service.abstracts.DtoConverter;
 

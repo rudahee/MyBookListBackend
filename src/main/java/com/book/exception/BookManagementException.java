@@ -1,6 +1,6 @@
 package com.book.exception;
 
-import com.book.security.error.BodyErrorCode;
+import com.book.model.enumerated.BodyErrorCode;
 
 @SuppressWarnings("serial")
 public class BookManagementException extends Exception {
