@@ -12,6 +12,10 @@ import javax.persistence.ManyToMany;
 
 import com.book.model.entity.book.Book;
 
+/* This class represents a author_customer table in database
+ * 
+ * @author J. Rubén Daza
+ */
 @SuppressWarnings("serial")
 @Entity
 public class AuthorCustomer extends Customer {

@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+/* This class represents a BookForApproval table in database
+ * 
+ * @author J. Rubén Daza
+ */
 @Entity
 public class BookForApproval {
 	@Id
@@ -17,7 +21,7 @@ public class BookForApproval {
 	@Column(nullable=false)
 	private String name;
 	@Lob
-	@Column(columnDefinition = "text", length=8192, nullable=false)
+	@Column(columnDefinition = "text", length=4250, nullable=false)
 	private String description;
 	@Column(nullable=false)
 	private Integer pages;

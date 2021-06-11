@@ -4,6 +4,10 @@ import com.book.model.enumerated.Genre;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents a statistics for an admin
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonInclude(Include.NON_NULL)
 public class AdminStatsDTO {
 

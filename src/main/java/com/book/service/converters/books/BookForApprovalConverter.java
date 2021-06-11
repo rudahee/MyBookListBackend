@@ -6,6 +6,12 @@ import com.book.model.dto.books.BookForApprovalDTO;
 import com.book.model.entity.book.BookForApproval;
 import com.book.service.abstracts.DtoConverter;
 
+/* Implements DtoConverter for BookForApproval
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class BookForApprovalConverter extends DtoConverter<BookForApproval, BookForApprovalDTO> {
 

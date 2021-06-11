@@ -1,5 +1,9 @@
 package com.book.service.utils.common;
 
+/* This class is to represent a list of Spring Mail related constants and messages for EmailService.
+ * 
+ * @author J. Rubén Daza
+ */
 public class EmailConstants {
 	
 	public static final String BASIC_URL = "www.mybooklist.site";
@@ -7,6 +11,7 @@ public class EmailConstants {
 	public static final String SIGNIN_URL = "www.mybooklist.site/sign-in";
 	
 	public static final String ACTIVATION_URL = "www.mybooklist.site/activate-account";
+	
 	
 	public static final String ACTIVATION_SUBJECT = "[MyBookList] Account Activation is Needed!";
 	
@@ -24,6 +29,7 @@ public class EmailConstants {
 	
 	
 	
+	
 	public static final String REGISTER_USER_SUBJECT = "[MyBookList] Account Registration Complete!";
 
 	/* FORMATTING STIRNG
@@ -33,6 +39,8 @@ public class EmailConstants {
 			 								   		"Your account has been successfully activated \n\n" +
 			 								   		"Now, you can sign in here: " + SIGNIN_URL + "\n\n" + 
 			 								   		"Thank you, " + BASIC_URL;
+	
+
 	
 	/* FORMATTING STRING
 	 *  1- Complete Name and Surname
@@ -55,6 +63,8 @@ public class EmailConstants {
 	
 	
 
+	
+	
 	public static final String FRIEND_REQUEST_SUBJECT = "[MyBookList] You have a new friend request!";
 
 	/* FORMATTING STIRNG

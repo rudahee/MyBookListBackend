@@ -18,7 +18,18 @@ import com.book.security.jwt.JWTTokenProvider;
 import com.book.service.converters.users.UserConverter;
 import com.book.service.entity.users.UserService;
 import com.book.service.utils.Checker;
+import com.book.service.utils.RecommendationService;
 
+
+/*
+* Controller for API Rest. 
+* 
+* Annotated by @RestController and @RequestMapping. its mapped in [url]:[port]/user
+* 
+* This controller is in charge of managing all the requests that have to do with the user. 
+* 
+* @author J. Rubén Daza
+*/
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
@@ -32,6 +43,17 @@ public class UserController {
 	@Autowired
 	protected UserConverter converter;
 	
+	@Autowired
+	protected RecommendationService recomendationService;
+	
+	/* HTTP/GET
+	 * 
+	 * This method returns all user personal data for himself.
+	 * 
+	 * @param request HttpServletRequest, used to extract JWT Token
+	 * 
+	 * @return ResponseEntity<?> BodyErrorCode or UserDTO.
+	 */
 	@GetMapping("/me")
 	public ResponseEntity<?> get(HttpServletRequest request) {
 		Long id = JWTTokenProvider.getIdFromToken(
@@ -41,12 +63,22 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
 	}
 	
+	/* HTTP/GET
+	 * 
+	 * Get public data from user by id.
+	 * 
+	 * @param id Long user id
+	 * 
+	 * @return ResponseEntity<?> BodyErrorCode or UserDTO.
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getPublicUser(@PathVariable Long id) {
 		try {
 			UserDTO dto = this.service.findById(id);			
 
 			if (dto.getRoles().contains(UserRole.USER)) {
+
+				// We need delete some data from dto
 				dto.setActivationCode(null);
 				dto.setEnableAccount(null);
 				dto.setLastPasswordChange(null);
@@ -60,6 +92,22 @@ public class UserController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyErrorCode.INDETERMINATE_ERROR);
 		}
+	}
+	
+	/* HTTP/GET
+	 * 
+	 * Get recommendations based in your application used.
+	 * 
+	 * @param request HttpServletRequest, used to extract JWT Token
+	 * 
+	 * @return ResponseEntity<RecommendationDTO>.
+	 */
+	@GetMapping("/recommendations")
+	public ResponseEntity<?> prueba(HttpServletRequest request) {
+		Long idUser = JWTTokenProvider.getIdFromToken(
+				request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length())
+				);
+		return ResponseEntity.status(HttpStatus.OK).body(recomendationService.getRecommendations(idUser));
 	}
 	
 }

@@ -1,7 +1,14 @@
 package com.book.model.dto.books;
 
 import com.book.model.enumerated.Status;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents a book. 
+ * 
+ * @author J. Rubén Daza
+ */
+@JsonInclude(Include.NON_NULL)
 public class BookForUserListDTO {
 	
 	private Long id;

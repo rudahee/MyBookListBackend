@@ -3,6 +3,11 @@ package com.book.service.abstracts;
 import java.util.ArrayList;
 import java.util.List;
 
+/* DtoConverter is abstract class that makes use of several generics, 
+ * the objective of this class is to convert from an entity to a dto or viceversa. 
+ * 
+ * @author J. Rubén Daza
+ */
 public abstract class DtoConverter<E, D> {
 /*
  * E -> Entity

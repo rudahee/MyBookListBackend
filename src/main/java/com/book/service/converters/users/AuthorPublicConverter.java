@@ -12,6 +12,12 @@ import com.book.model.entity.customer.AuthorCustomer;
 import com.book.service.abstracts.DtoConverter;
 import com.book.service.converters.books.BookConverter;
 
+/* Implements DtoConverter for User with author role
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class AuthorPublicConverter extends DtoConverter<User, AuthorPublicDTO> {
 

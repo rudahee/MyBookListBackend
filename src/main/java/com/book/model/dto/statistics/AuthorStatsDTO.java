@@ -3,6 +3,10 @@ package com.book.model.dto.statistics;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents a statistics for an author
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonInclude(Include.NON_NULL)
 public class AuthorStatsDTO {
 
@@ -27,7 +31,7 @@ public class AuthorStatsDTO {
 	
 	private Integer qtyFollowers;
 	private Integer femaleFollowers;
-	private Integer malefFollowers;
+	private Integer maleFollowers;
 	private Integer meanAgeFollowers;
 
 	public AuthorStatsDTO() {
@@ -178,11 +182,11 @@ public class AuthorStatsDTO {
 		this.meanAgeFollowers = meanAgeFollowers;
 	}
 
-	public Integer getMalefFollowers() {
-		return malefFollowers;
+	public Integer getMaleFollowers() {
+		return maleFollowers;
 	}
 
-	public void setMalefFollowers(Integer malefFollowers) {
-		this.malefFollowers = malefFollowers;
+	public void setMaleFollowers(Integer maleFollowers) {
+		this.maleFollowers = maleFollowers;
 	}
 }

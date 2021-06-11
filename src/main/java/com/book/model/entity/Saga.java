@@ -12,6 +12,10 @@ import javax.persistence.OneToMany;
 
 import com.book.model.entity.book.Book;
 
+/* This class represents a saga table in database
+ * 
+ * @author J. Rubén Daza
+ */
 @Entity
 public class Saga {
 	

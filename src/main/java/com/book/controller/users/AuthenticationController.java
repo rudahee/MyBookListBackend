@@ -17,6 +17,15 @@ import com.book.service.entity.users.UserService;
 import com.book.service.utils.Checker;
 import com.book.service.utils.EmailService;
 
+/*
+* Controller for API Rest. 
+* 
+* Annotated by @RestController and @RequestMapping. its mapped in [url]:[port]/auth
+* 
+* This controller is responsible for the creation and login of users in the system. It also allows account activation.
+* 
+* @author J. Rubén Daza
+*/
 @RestController
 @RequestMapping(path = "/auth")
 public class AuthenticationController {
@@ -33,6 +42,14 @@ public class AuthenticationController {
 	@Autowired
 	private EmailService emailService;	
 	
+	/* HTTP/POST
+	 * 
+	 * This method allows you to register a new user in the system.
+	 * 
+	 * @param user UserDTO 
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>.
+	 */
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> signUpUser(@RequestBody UserDTO user) {
 		ResponseEntity<?> response = null;
@@ -53,6 +70,14 @@ public class AuthenticationController {
 		return response;
 	}
 	
+	/* HTTP/PUT
+	 * 
+	 * This driver allows you to activate a user account
+	 * 
+	 * @param user UserDTO 
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>.
+	 */
 	@PutMapping("/activate")
 	public ResponseEntity<?> activateAccount(@RequestBody UserDTO dataReceived) {
 		UserDTO user = null;
@@ -85,6 +110,14 @@ public class AuthenticationController {
 		}
 	}
 	
+	/* HTTP/POST
+	 * 
+	 * This method allows an admin to register a new author in the system.
+	 * 
+	 * @param user UserDTO 
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>.
+	 */
 	@PostMapping("/sign-up/author")
 	public ResponseEntity<?> signUpAuthor(@RequestBody UserDTO user) {
 		ResponseEntity<?> response = null;
@@ -100,6 +133,14 @@ public class AuthenticationController {
 		return response;
 	}
 	
+	/* HTTP/POST
+	 * 
+	 * This method allows an admin to register a new admin in the system.
+	 * 
+	 * @param user UserDTO 
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>.
+	 */
 	@PostMapping("/sign-up/admin")
 	public ResponseEntity<?> signUpAdmin(@RequestBody UserDTO user) {
 		ResponseEntity<?> response = null;
@@ -117,6 +158,15 @@ public class AuthenticationController {
 		return response;
 	}
 
+	/* HTTP/POST
+	 * 
+	 * This controller allows logging an account in the system, 
+	 * in the response the JWT token will be returned.
+	 * 
+	 * @param user UserDTO 
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>.
+	 */
 	@PostMapping("/sign-in")
 	public ResponseEntity<?> signIn(@RequestBody UserDTO user) {
 		ResponseEntity<?> response = null;

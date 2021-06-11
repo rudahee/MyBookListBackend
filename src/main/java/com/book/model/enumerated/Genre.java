@@ -9,6 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+/* This enumeration is used to define genres of a book.
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Genre implements Serializable {
 	AUTOBIOGRAPHICAL("Autobiographical"),
@@ -60,6 +64,7 @@ public enum Genre implements Serializable {
 	
     @JsonCreator
     public static Genre fromJson(@JsonProperty("genre") String genre) {
+    	// This method is special. Get a genre from the text that represents it. 
     	return Arrays.stream(values())
                 .filter(g -> g.genre.equalsIgnoreCase(genre))
                 .findFirst()

@@ -12,6 +12,11 @@ import javax.persistence.ManyToOne;
 
 import com.book.model.entity.customer.UserCustomer;
 
+/* This class represents a relationship between users, normally spring does the N: M relations automatically, 
+ * but I needed to have an exhaustive control of this class, in addition to adding extra parameters.
+ * 
+ * @author J. Rubén Daza
+ */
 @SuppressWarnings("serial")
 @Entity
 public class Friendship implements Serializable {

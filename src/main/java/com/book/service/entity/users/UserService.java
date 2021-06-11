@@ -18,6 +18,7 @@ import com.book.model.dto.FriendshipDTO;
 import com.book.model.dto.users.SimplifiedAuthorDTO;
 import com.book.model.dto.users.UserDTO;
 import com.book.model.entity.User;
+import com.book.model.entity.customer.AdminCustomer;
 import com.book.model.entity.customer.AuthorCustomer;
 import com.book.model.entity.customer.UserCustomer;
 import com.book.model.entity.relationship.Friendship;
@@ -146,23 +147,25 @@ public class UserService extends BaseService<User, UserDTO, UserConverter, UserR
 		
 		if (user.getEnableAccount()) {
 			user.setPassword(UUID.randomUUID().toString().substring(0, 13));
+			String completeName = user.getName() + ' ' + user.getSurname();
+			emailService.sendSignUpComplete(user.getUsername(), user.getPassword(), completeName, user.getEmail());
 			
 		} else {
 			String activationCode = UUID.randomUUID().toString().substring(0, 8);
 			user.setActivationCode(activationCode);			
 			
-		}	
+		}
 		
 		user.setRoles(Set.of(UserRole.ADMIN));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		AuthorCustomer customer = new AuthorCustomer();
+		AdminCustomer customer = new AdminCustomer();
 		
 		User userObj = DtoConverter.fromDto(user);
 		
 		userObj.setCustomer(customer);
 		customer.setUser(userObj);
 		
-		return user;
+		return DtoConverter.fromEntity(repository.save(userObj));
 	}
 	
 	public Boolean createFriendRequest(Long requesterId, Long receiverId) throws UserManagementException {

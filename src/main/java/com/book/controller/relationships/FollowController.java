@@ -19,6 +19,16 @@ import com.book.service.converters.users.UserConverter;
 import com.book.service.entity.users.UserService;
 import com.book.service.utils.Checker;
 
+/*
+ * Controller for API Rest. 
+ * 
+ * Annotated by @RestController and @RequestMapping. its mapped in [url]:[port]/follow
+ * 
+ * This controller receives related to follow authors and the relationship between 
+ * authors and users requests.
+ * 
+ * @author J. Rubén Daza
+ */
 @RestController
 @RequestMapping(path = "/follow")
 public class FollowController {
@@ -32,8 +42,17 @@ public class FollowController {
 	@Autowired
 	protected UserConverter converter;
 	
+	/*
+	 * This method receives an id of an author and gets the id of the user from the JWT token
+	 * to create the relationship between the user and the author.
+	 * 
+	 * @param receiverId author id as Long
+	 * @param request HttpServletRequest
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>
+	 */
 	@PutMapping("{receiverId}")
-	public ResponseEntity<?> setFollower(HttpServletRequest request, @PathVariable Long receiverId) {
+	public ResponseEntity<BodyErrorCode> setFollower(HttpServletRequest request, @PathVariable Long receiverId) {
 		Long requesterId = JWTTokenProvider.getIdFromToken(request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length()));
 		
 		try {
@@ -44,6 +63,13 @@ public class FollowController {
 		}
 	}
 	
+	/*
+	 * This method returns a list of the authors that a specific user follows through the JWT token.
+	 * 
+	 * @param request HttpServletRequest
+	 * 
+	 * @return ResponseEntity<?> List<SimplifiedAuthorDTO> or BodyErrorCode.
+	 */
 	@GetMapping("all")
 	public ResponseEntity<?> getFollowers(HttpServletRequest request) {
 		Long userId = JWTTokenProvider.getIdFromToken(request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length()));

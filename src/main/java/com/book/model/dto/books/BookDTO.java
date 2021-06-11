@@ -7,6 +7,10 @@ import com.book.model.enumerated.Genre;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents a book. 
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonInclude(Include.NON_NULL)
 public class BookDTO {
 	

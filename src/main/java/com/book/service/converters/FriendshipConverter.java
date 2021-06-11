@@ -6,6 +6,12 @@ import com.book.model.dto.FriendshipDTO;
 import com.book.model.entity.relationship.Friendship;
 import com.book.service.abstracts.DtoConverter;
 
+/* Implements DtoConverter for friendship 
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class FriendshipConverter extends DtoConverter<Friendship, FriendshipDTO> {
 	

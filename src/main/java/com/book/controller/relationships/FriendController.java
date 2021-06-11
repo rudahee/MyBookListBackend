@@ -20,6 +20,15 @@ import com.book.service.converters.users.UserConverter;
 import com.book.service.entity.users.UserService;
 import com.book.service.utils.Checker;
 
+/*
+* Controller for API Rest. 
+* 
+* Annotated by @RestController and @RequestMapping. its mapped in [url]:[port]/friend
+* 
+* This controller receives related to friends relationship between users requests.
+* 
+* @author J. Rubén Daza
+*/
 @RestController
 @RequestMapping(path = "/friend")
 public class FriendController {
@@ -32,14 +41,30 @@ public class FriendController {
 	@Autowired
 	protected UserConverter converter;
 	
+	/* HTTP/GET
+	 * 
+	 * This method returns a list of the friends that a specific user through the JWT token.
+	 * 
+	 * @param request HttpServletRequest
+	 * 
+	 * @return ResponseEntity<?> List<SimplifiedAuthorDTO> or BodyErrorCode.
+	 */
 	@GetMapping("")
 	public ResponseEntity<?> friendList(HttpServletRequest request) {
 		Long requesterId = JWTTokenProvider.getIdFromToken(request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length()));
 
 		return ResponseEntity.status(HttpStatus.OK).body(service.getFriendList(requesterId));
-		
 	}
 	
+	/* HTTP/PUT
+	 * This method receives an id of an another user and gets the id of the user from the JWT token
+	 * to create the relationship between the users.
+	 * 
+	 * @param receiverId user id as Long
+	 * @param request HttpServletRequest
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>
+	 */
 	@PutMapping("/request/{receiverId}")
 	public ResponseEntity<?> friendRequest(HttpServletRequest request, @PathVariable Long receiverId) {
 		Long requesterId = JWTTokenProvider.getIdFromToken(request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length()));
@@ -56,6 +81,15 @@ public class FriendController {
 		}
 	}
 	
+	/* HTTP/PUT
+	 * This method receives an id of an user and gets the id of the user from the JWT token
+	 * to accept a friendship.
+	 * 
+	 * @param receiverId user id as Long
+	 * @param request HttpServletRequest
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>
+	 */	
 	@PutMapping("/accept/{requesterId}")
 	public ResponseEntity<?> friendAccept(HttpServletRequest request, @PathVariable Long requesterId) {
 		Long receiverId = JWTTokenProvider.getIdFromToken(request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length()));
@@ -68,6 +102,15 @@ public class FriendController {
 		}
 	}
 	
+	/* HTTP/DELETE
+	 * This method receives an id of an user and gets the id of the user from the JWT token
+	 * to reject a friendship.
+	 * 
+	 * @param receiverId user id as Long
+	 * @param request HttpServletRequest
+	 * 
+	 * @return ResponseEntity<BodyErrorCode>
+	 */	
 	@DeleteMapping("reject/{requesterId}")
 	public ResponseEntity<?> friendReject(HttpServletRequest request, @PathVariable Long requesterId){
 		Long receiverId = JWTTokenProvider.getIdFromToken(request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length()));

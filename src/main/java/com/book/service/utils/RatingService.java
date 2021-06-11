@@ -11,6 +11,10 @@ import com.book.model.enumerated.Status;
 import com.book.model.repository.books.BookRepository;
 import com.book.model.repository.users.UserRepository;
 
+/* This class get ratings for books or users. 
+ * 
+ * @author J. Rubén Daza
+ */
 @Service
 public class RatingService {
 
@@ -22,6 +26,11 @@ public class RatingService {
 	Double meanScore;
 	Long quantityScores;
 	
+	
+	/* This method get mean score from book
+	 * 
+	 * @param id Long
+	 */
 	public Double GetMeanScoreFromBook(Long id) {
 		List<BookUserCustomer> entities = this.bookRepository.findById(id).get().getUsers();
 		
@@ -40,6 +49,10 @@ public class RatingService {
 		return meanScore;
 	}
 	
+	/* This method get mean score from user
+	 * 
+	 * @param id Long
+	 */
 	public Double GetUserMeanScore(Long id) {
 		UserCustomer customer = (UserCustomer) this.userRepository.findById(id).get().getCustomer();
 		List<BookUserCustomer> entities = customer.getBooks();

@@ -19,7 +19,12 @@ import com.book.security.common.SecurityConstants;
 import com.book.security.jwt.JWTTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+/* This class provides a filter in login, authentication filter.
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see UsernamePasswordAuthenticationFilter
+ */
 @WebFilter
 public class UsernamePasswordAuthenticationFilterImpl extends UsernamePasswordAuthenticationFilter {
 

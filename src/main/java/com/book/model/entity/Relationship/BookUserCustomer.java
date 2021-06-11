@@ -15,6 +15,11 @@ import com.book.model.entity.book.Book;
 import com.book.model.entity.customer.UserCustomer;
 import com.book.model.enumerated.Status;
 
+/* This class represents a relationship between book and user, normally spring does the N: M relations automatically, 
+ * but I needed to have an exhaustive control of this class, in addition to adding extra parameters.
+ * 
+ * @author J. Rubén Daza
+ */
 @Entity
 public class BookUserCustomer {
 

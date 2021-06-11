@@ -15,6 +15,10 @@ import com.book.service.abstracts.BaseService;
 import com.book.service.converters.SagaConverter;
 import com.book.service.converters.books.BookConverter;
 
+/* This class manages the sagas
+ * 
+ * @author J. Rubén Daza
+ */
 @Service
 public class SagaService extends BaseService<Saga, SagaDTO, SagaConverter, SagaRepository, Long> {
 
@@ -24,15 +28,29 @@ public class SagaService extends BaseService<Saga, SagaDTO, SagaConverter, SagaR
 	@Autowired
 	private BookConverter bookConverter;
 	
-	
+	/* Obtain all books from saga by bookid
+	 *
+	 *@param id Long
+	 *
+	 *@return List<BookDTO>
+	 */
 	public List<BookDTO> getBooksFromSagaByBookId(Long id) {
 		Book book = this.bookRepository.findById(id).get();
-	
-		List<BookDTO> booksDTO = bookConverter.fromEntities(book.getSaga().getBooks());
+		if (book.getSaga() != null) {
+			List<BookDTO> booksDTO = bookConverter.fromEntities(book.getSaga().getBooks());			
+			return booksDTO;
+		} else {
+			return null;
+		}
 		
-		return booksDTO;
 	}
 	
+	/* Obtain all sagas from author
+	 *
+	 *@param id Long
+	 *
+	 *@return List<SagaDTO>
+	 */
 	public List<SagaDTO> getSagaByAuthorId(Long id) {
 		return this.DtoConverter.fromEntities(this.repository.getSagasByAuthor(id+1)); 
 	}

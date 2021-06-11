@@ -5,7 +5,14 @@ import java.util.Set;
 
 import com.book.model.dto.books.BookDTO;
 import com.book.model.enumerated.UserRole;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents a author
+ * 
+ * @author J. Rubén Daza
+ */
+@JsonInclude(Include.NON_NULL)
 public class AuthorPublicDTO {
 	private Long id;
 	private String name;

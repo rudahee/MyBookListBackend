@@ -25,6 +25,13 @@ import com.book.service.entity.users.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+
+/* This class provides a filter in each request, authorization filter.
+ * 
+ * @author J. Rubén Daza
+ *   
+ * @see OncePerRequestFilter
+ */
 @Component
 @WebFilter
 public class OncePerRequestFilterImpl extends OncePerRequestFilter {
@@ -32,12 +39,14 @@ public class OncePerRequestFilterImpl extends OncePerRequestFilter {
 	@Autowired
 	private UserService userService;
 	
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
 		String header = request.getHeader(SecurityConstants.TOKEN_HEADER);
 
+		// if header doesnt starts with 'Bearer '
         if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;

@@ -2,6 +2,10 @@ package com.book.model.enumerated;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/* This enumeration is used to report errors through the controllers and custom exceptions. 
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum BodyErrorCode implements Serializable {
 	

@@ -47,7 +47,7 @@ public class AuthorStatsService {
 					if (gender.equals(Gender.FEMALE)) {
 						dto.setFemaleFollowers(dto.getFemaleFollowers() + 1);
 					} else if (gender.equals(Gender.MALE)) {
-						dto.setMalefFollowers(dto.getMalefFollowers() + 1);
+						dto.setMaleFollowers(dto.getMaleFollowers() + 1);
 					}
 					
 					dto.setMeanAgeFollowers(dto.getMeanAgeFollowers() + follower.getUser().getAge());
@@ -161,7 +161,7 @@ public class AuthorStatsService {
 
 		dto.setQtyFollowers(0);
 		dto.setFemaleFollowers(0);
-		dto.setMalefFollowers(0);
+		dto.setMaleFollowers(0);
 		dto.setMeanAgeFollowers(0);
 		
 		return dto;

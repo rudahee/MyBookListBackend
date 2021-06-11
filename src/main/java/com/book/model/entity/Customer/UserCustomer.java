@@ -14,6 +14,10 @@ import javax.persistence.OneToMany;
 import com.book.model.entity.relationship.BookUserCustomer;
 import com.book.model.entity.relationship.Friendship;
 
+/* This class represents a user_customer table in database
+ * 
+ * @author J. Rubén Daza
+ */
 @SuppressWarnings("serial")
 @Entity	
 public class UserCustomer extends Customer {

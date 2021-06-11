@@ -6,6 +6,12 @@ import com.book.model.dto.users.UserDTO;
 import com.book.model.entity.User;
 import com.book.service.abstracts.DtoConverter;
 
+/* Implements DtoConverter for User with user role 
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class UserConverter extends DtoConverter<User, UserDTO> {
 	

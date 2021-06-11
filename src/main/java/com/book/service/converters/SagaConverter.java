@@ -6,6 +6,12 @@ import com.book.model.dto.books.SagaDTO;
 import com.book.model.entity.Saga;
 import com.book.service.abstracts.DtoConverter;
 
+/* Implements DtoConverter for saga 
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class SagaConverter extends DtoConverter<Saga, SagaDTO> {
 

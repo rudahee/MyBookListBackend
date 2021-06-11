@@ -11,6 +11,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+/* This class is needed to modify requests, but right now it's 'by default'.
+ * 
+ * @author J. Rubén Daza
+ */
 @Component
 public class CustomSecurityEntryPoint implements AuthenticationEntryPoint {
 
@@ -24,8 +28,6 @@ public class CustomSecurityEntryPoint implements AuthenticationEntryPoint {
 		response.getWriter().append(authException.getMessage());
 		
 		response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
-
-		
 	}
 
 }

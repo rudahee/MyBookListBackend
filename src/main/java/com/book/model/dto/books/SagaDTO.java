@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents a saga
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonInclude(Include.NON_NULL)
 public class SagaDTO {
 

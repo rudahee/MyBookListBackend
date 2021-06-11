@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.book.exception.UserManagementException;
+import com.book.model.dto.minimal.AuthorPersonalDataDTO;
 import com.book.model.dto.users.AuthorPublicDTO;
 import com.book.model.dto.users.SimplifiedAuthorDTO;
 import com.book.model.dto.users.UserDTO;
@@ -23,6 +24,12 @@ import com.book.service.converters.users.AuthorPublicConverter;
 import com.book.service.converters.users.SimplifiedAuthorConverter;
 import com.book.service.converters.users.UserConverter;
 
+/* Implements BaseService for Author (Its User + AuthorCustomer)
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see BaseService
+ */
 @Service
 public class AuthorService extends BaseService<User, UserDTO, UserConverter, UserRepository, Long> {
 	
@@ -38,6 +45,11 @@ public class AuthorService extends BaseService<User, UserDTO, UserConverter, Use
 	@Autowired
 	private UserCustomerRepository userRepository;
 	
+	/* 
+	 * this method get all authors.
+	 *
+	 * @return List<UserDTO>
+	 */
 	public List<UserDTO> getAllAuthors() {
 		List<User> users = this.repository.findAll();
 		List<UserDTO> dtos = new ArrayList<UserDTO>();
@@ -51,11 +63,18 @@ public class AuthorService extends BaseService<User, UserDTO, UserConverter, Use
 	}
 	
 	
+	/* 
+	 * this method get an author
+	 * 
+	 * @param id Long
+	 *
+	 * @return AuthorPublicDTO
+	 */
 	public AuthorPublicDTO getPublicAuthor(Long id) throws UserManagementException {
 		Optional<User> user = this.repository.findById(id);
 		
 		if (user.isPresent()) {
-			if (!user.get().getCustomer().getClass().isAssignableFrom(AuthorCustomer.class)) {
+			if (!user.get().getCustomer().getClass().isAssignableFrom(AuthorCustomer.class)) { // If is author
 				throw new UserManagementException(BodyErrorCode.USER_NOT_EXIST);
 			}
 			
@@ -67,6 +86,13 @@ public class AuthorService extends BaseService<User, UserDTO, UserConverter, Use
 		}
 	}
 	
+	/* 
+	 * this method get all authors that a user follows.
+	 * 
+	 * @param id Long 
+	 *
+	 * @return SimplifiedAuthorDTO
+	 */
 	public List<SimplifiedAuthorDTO> getFollowedAuthor(Long id) throws UserManagementException {
 		Optional<User> user = this.repository.findById(id);
 		ArrayList<SimplifiedAuthorDTO> authorsDTO = new ArrayList<SimplifiedAuthorDTO>();
@@ -90,11 +116,35 @@ public class AuthorService extends BaseService<User, UserDTO, UserConverter, Use
 		}	
 	}
 	
+	/* 
+	 * this method edit an Author
+	 * 
+	 * @param id Long
+	 * @param data AuthorPersonalDataDTO
+	 */
+	public void changePersonalData(Long id, AuthorPersonalDataDTO data) {
+		AuthorCustomer author = (AuthorCustomer) this.repository.findById(id).get().getCustomer();
+		
+		author.setBiography(data.getBiography());
+		author.setUrlImage(data.getUrlImage());
+		
+		this.authorRepository.save(author);
+		
+	}
+	
+	/* 
+	 * allows following an author by changing the Author Customer parameter and UserCustomer parameter
+	 * 
+	 * @param userId Long
+	 * @param authorId Long
+	 *
+	 * @return Boolean
+	 */
 	public Boolean followAuthor(Long userId, Long authorId) throws UserManagementException {
 		Optional<User> userUser = this.repository.findById(userId);
 		Optional<User> userAuthor = this.repository.findById(authorId);
 
-		if (userUser.isPresent() && userAuthor.isPresent()) {
+		if (userUser.isPresent() && userAuthor.isPresent()) { // if both isn't present or haven't the appropriate roles
 			if(!userUser.get().getCustomer().getClass().isAssignableFrom(UserCustomer.class) 
 				&& !userAuthor.get().getCustomer().getClass().isAssignableFrom(AuthorCustomer.class)) {
 				

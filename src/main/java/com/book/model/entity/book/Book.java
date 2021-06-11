@@ -25,7 +25,10 @@ import com.book.model.entity.customer.AuthorCustomer;
 import com.book.model.entity.relationship.BookUserCustomer;
 import com.book.model.enumerated.Genre;
 
-
+/* This class represents a Book table in database
+ * 
+ * @author J. Rubén Daza
+ */
 @Entity
 public class Book {
 
@@ -35,8 +38,8 @@ public class Book {
 	@Column(nullable=false)
 	private String name;
 	
-	@Lob
-	@Column(columnDefinition = "text", length=8192, nullable=false)
+	@Lob //Large object. The length is greater than the maximum size of a java string 
+	@Column(columnDefinition = "text", length=4250, nullable=false)
 	private String description;
 	@Column(nullable=false)
 	private String imageUrl;

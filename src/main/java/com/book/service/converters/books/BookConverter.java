@@ -9,6 +9,12 @@ import com.book.model.entity.Saga;
 import com.book.model.entity.book.Book;
 import com.book.service.abstracts.DtoConverter;
 
+/* Implements DtoConverter for Book
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class BookConverter extends DtoConverter<Book, BookDTO> {
 
@@ -44,6 +50,7 @@ public class BookConverter extends DtoConverter<Book, BookDTO> {
 		
 		Saga saga = entity.getSaga();
 		
+		// if saga exists
 		if (saga != null) {
 			dto.setSagaName(saga.getName());
 			dto.setSagaTotalBooks(saga.getBooks().size());

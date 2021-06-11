@@ -29,6 +29,12 @@ import com.book.model.entity.customer.Customer;
 import com.book.model.enumerated.Gender;
 import com.book.model.enumerated.UserRole;
 
+
+/* This class represents a user table in database. 
+ * It is also the entity used by spring security for its user management 
+ * 
+ * @author J. Rubén Daza
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
@@ -124,7 +130,8 @@ public class User implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<? extends GrantedAuthority> getAuthorities() { 
+		// return roles with format: ROLE_NOMBRE
 		return roles.stream().map(ur -> new SimpleGrantedAuthority("ROLE_"+ur.name())).collect(Collectors.toList());
 	}
 

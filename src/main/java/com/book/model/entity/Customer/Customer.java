@@ -14,6 +14,12 @@ import javax.persistence.OneToOne;
 
 import com.book.model.entity.User;
 
+/* This class represents a customer table in database
+ * 
+ * abstract class, heritage for each type of account.
+ * 
+ * @author J. Rubén Daza
+ */
 @SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)

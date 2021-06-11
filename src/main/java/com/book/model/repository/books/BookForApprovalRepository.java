@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.book.model.entity.book.BookForApproval;
 
+
 @Repository
 public interface BookForApprovalRepository extends JpaRepository<BookForApproval, Long>{
 

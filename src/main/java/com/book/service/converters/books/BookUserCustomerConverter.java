@@ -12,6 +12,12 @@ import com.book.model.repository.books.BookRepository;
 import com.book.model.repository.users.UserRepository;
 import com.book.service.abstracts.DtoConverter;
 
+/* Implements DtoConverter for BookUserCustomer
+ * 
+ * @author J. Rubén Daza
+ * 
+ * @see DtoConverter
+ */
 @Service
 public class BookUserCustomerConverter extends DtoConverter<BookUserCustomer, BookUserCustomerDTO> {
 
@@ -31,27 +37,34 @@ public class BookUserCustomerConverter extends DtoConverter<BookUserCustomer, Bo
 		entity.setStatus(dto.getStatus());
 		entity.setDate(dto.getDate());
 		
+		// different data needs to be saved depending on the status
 		
 		if (entity.getStatus().equals(Status.COMPLETED)) {
 			entity.setPagesReaded(book.getPages());
+			
 		} else if (entity.getStatus().equals(Status.PLANTOREAD)) {
 			entity.setPagesReaded(0);
+		
 		} else {
 			entity.setPagesReaded(dto.getPagesReaded());			
+		
 		}
 		
 		if (entity.getStatus().equals(Status.COMPLETED) || entity.getStatus().equals(Status.DROPPED)) {
 			entity.setScore(dto.getScore());
+		
 		} else {
 			entity.setScore(null);
+		
 		}
 		
 		if (entity.getStatus().equals(Status.PLANTOREAD)) {
 			entity.setComment(null);
+		
 		} else {
 			entity.setComment(dto.getComment());			
-		}
 		
+		}
 		
 		entity.setBook(book);
 		entity.setUser(userCustomer);

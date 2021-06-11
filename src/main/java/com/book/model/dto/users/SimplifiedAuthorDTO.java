@@ -1,5 +1,13 @@
 package com.book.model.dto.users;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+/* This class represents a author
+ * 
+ * @author J. Rubén Daza
+ */
+@JsonInclude(Include.NON_NULL)
 public class SimplifiedAuthorDTO {
 	
 	private long id;

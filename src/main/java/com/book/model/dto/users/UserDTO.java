@@ -9,6 +9,10 @@ import com.book.model.enumerated.UserRole;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/* This class represents an user
+ * 
+ * @author J. Rubén Daza
+ */
 @JsonInclude(Include.NON_NULL)
 public class UserDTO {
 
