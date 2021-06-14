@@ -71,14 +71,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) //we will work without explicit session control
 			.and()
 			.authorizeRequests() // Access control to endpoints by roles.
+				.antMatchers(HttpMethod.PUT, "/follow/*").hasRole("USER")
+				.antMatchers(HttpMethod.GET, "/follow/*").hasRole("USER")
+				
+				.antMatchers(HttpMethod.GET, "/friend/*").hasRole("USER")
+				.antMatchers(HttpMethod.PUT, "/friend/*").hasRole("USER")
+				.antMatchers(HttpMethod.DELETE, "/friend/*").hasRole("USER")
+
+				
 				.antMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/sign-up/*").hasRole("ADMIN")
 				.antMatchers(HttpMethod.POST, "/auth/sign-in").permitAll()
 				.antMatchers(HttpMethod.PUT, "/auth/activate").permitAll()
-				.antMatchers(HttpMethod.GET, "/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/user/me").authenticated()
-				.antMatchers(HttpMethod.POST, "/book").authenticated()
+				
+				.antMatchers(HttpMethod.GET, "/author/*").permitAll()
+				.antMatchers(HttpMethod.PUT, "/author/follow/*").hasRole("USER")
+				.antMatchers(HttpMethod.PUT, "/author/change-personal-data").hasRole("AUTHOR")
+
+				.antMatchers(HttpMethod.GET, "/user/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/user/me").hasRole("USER")
+				.antMatchers(HttpMethod.GET, "/user/recommendations").hasRole("USER")
+
+				.antMatchers(HttpMethod.GET, "/book/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/book/*").hasAnyRole("AUTHOR", "ADMIN")
+				.antMatchers(HttpMethod.POST, "/book/approval").authenticated()
+				.antMatchers(HttpMethod.PUT, "/*").hasRole("USER")
+				.antMatchers(HttpMethod.DELETE, "/*").hasRole("ADMIN")
+
+				.antMatchers(HttpMethod.GET, "/saga/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/saga").hasAnyRole("AUTHOR", "ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/saga/*").hasAnyRole("AUTHOR", "ADMIN")
+
+				.antMatchers(HttpMethod.GET, "/statistics/user/*").hasRole("USER")
+				.antMatchers(HttpMethod.GET, "/statistics/author/*").hasRole("AUTHOR")
+				.antMatchers(HttpMethod.GET, "/statistics/admin").hasRole("ADMIN")
+				
 				.anyRequest().authenticated()
-			.and() // We define the implementation of the authentication and authorization filter.
+			
+				.and() // We define the implementation of the authentication and authorization filter.
 			.addFilter(new UsernamePasswordAuthenticationFilterImpl(authenticationManagerBean()))
 			.addFilterBefore(OPRFilter, BasicAuthenticationFilter.class)
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

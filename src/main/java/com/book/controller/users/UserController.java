@@ -103,7 +103,7 @@ public class UserController {
 	 * @return ResponseEntity<RecommendationDTO>.
 	 */
 	@GetMapping("/recommendations")
-	public ResponseEntity<?> prueba(HttpServletRequest request) {
+	public ResponseEntity<?> recommendation(HttpServletRequest request) {
 		Long idUser = JWTTokenProvider.getIdFromToken(
 				request.getHeader(SecurityConstants.TOKEN_HEADER).substring(SecurityConstants.TOKEN_PREFIX.length())
 				);
