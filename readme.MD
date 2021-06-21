@@ -1,6 +1,6 @@
 # MyBookList - Backend.
 
-###  **[> Hey! Frontend Version here](https://github.com/rudahee/MyBookListFrontend)**
+###  **[> Hey! Frontend Version here](https://github.com/rudahee/MyBookList)**
 
 
 <br>
@@ -20,26 +20,25 @@
 
 > **This software its compatible with all Operative System with Java 11+**
 
-### **Descarga**
+### **Download**
 You can download the last WAR version to deploy in Tomcat9: [Releases Page](https://github.com/rudahee/MyBookListBackend/releases). 
 
 You only need download the last version stable: `MyBookList-v.1.0-STABLE.war`.
 
 _If you don't want to go to the releases page every time, there is a shortcut on the right with the latest version available_
 
-### **Ejecucion**
+### **Execution**
 
 To run the application you must deploy on a Tomcat9 or similar server, for this you can have more information about it in the documentation tutorial.
+Alternative, you can run the app doing java -jar (I recommend do a daemon in linux).
 
-Future link on deployment
-
+You can see the page in: **[> MyBookList.site](http://mybooklist.site)**
 ---
 
 ## **Changelog ✒️**
 
-- ## Version 0.1-BETA:
-  - **Readme Created** 
-    - You can read this document!
+- ## Version 1.0:
+  - **Basic App Creation** 
 
 ---
 ## **¡Fork me! 🛠️**
@@ -54,18 +53,19 @@ You need:
 
 To make your own builds follow these steps:
 `` ''
-$ mvn clean
-$ mvn build
-$ mvn compile war:war
+$ mvn (or mvnw) package
 `` ''
 
 A file is generated in `MyBookListBackend/target` called:
-- MyBookList-vX.X-STABLE.war
+- MyBookList-vX.X.war
 ----
 
 ## **Futures Improvements :arrow_up:**
 
-- **Empty. I need write this, but its tooooo loooooong**
+- ¡Code refactoring!
+- Eliminate inefficient code due to the presentation of the end of the school year.
+- Increase error handling in code.
+- TESTING, TESTING, TESTING.
 
 ---
 ## **Final Note**
