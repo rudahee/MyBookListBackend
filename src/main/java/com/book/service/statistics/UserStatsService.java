@@ -42,24 +42,26 @@ public class UserStatsService {
 			List<BookUserCustomer> books = customer.getBooks();
 			
 			books.forEach(book -> {
-				if (book.getDate().getYear() == date.getYear()) {
-					
-					if (!book.getStatus().equals(Status.PLANTOREAD)) {
-						if (book.getStatus().equals(Status.COMPLETED) || book.getStatus().equals(Status.DROPPED)) {
-							dto.setTotalBooksRead(dto.getTotalBooksRead() + 1);
-							dto.setTotalBooksThisYear(dto.getTotalBooksThisYear() + 1);							
+				if (book.getDate() != null) {
+					if (book.getDate().getYear() == date.getYear()) {
+						
+						if (!book.getStatus().equals(Status.PLANTOREAD)) {
+							if (book.getStatus().equals(Status.COMPLETED) || book.getStatus().equals(Status.DROPPED)) {
+								dto.setTotalBooksRead(dto.getTotalBooksRead() + 1);
+								dto.setTotalBooksThisYear(dto.getTotalBooksThisYear() + 1);							
+							}
+							dto.setTotalPagesRead(dto.getTotalPagesRead() + book.getPagesReaded());
+							dto.setTotalPagesThisYear(dto.getTotalPagesThisYear() + book.getPagesReaded());
 						}
-						dto.setTotalPagesRead(dto.getTotalPagesRead() + book.getPagesReaded());
-						dto.setTotalPagesThisYear(dto.getTotalPagesThisYear() + book.getPagesReaded());
-					}
-				} else {					
-					if (!book.getStatus().equals(Status.PLANTOREAD)) {
-						if (book.getStatus().equals(Status.COMPLETED) || book.getStatus().equals(Status.DROPPED)) {
-							dto.setTotalBooksRead(dto.getTotalBooksRead() + 1);
-						}						
-						dto.setTotalPagesRead(dto.getTotalPagesRead() + book.getPagesReaded());
-					}
-				}				
+					} else {					
+						if (!book.getStatus().equals(Status.PLANTOREAD)) {
+							if (book.getStatus().equals(Status.COMPLETED) || book.getStatus().equals(Status.DROPPED)) {
+								dto.setTotalBooksRead(dto.getTotalBooksRead() + 1);
+							}						
+							dto.setTotalPagesRead(dto.getTotalPagesRead() + book.getPagesReaded());
+						}
+					}				
+				}
 			});
 			
 			int minutesRead = 0;

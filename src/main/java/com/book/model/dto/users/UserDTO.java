@@ -38,6 +38,7 @@ public class UserDTO {
 	private Gender gender;
 	private Customer customer;
 	private String activationCode;
+	private String imageProfile;
 
 	public UserDTO() {
 		super();
@@ -169,5 +170,13 @@ public class UserDTO {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+
+	public String getImageProfile() {
+		return imageProfile;
+	}
+
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
 	}
 }

@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +19,7 @@ import com.book.exception.UserManagementException;
 import com.book.model.dto.FriendshipDTO;
 import com.book.model.dto.users.SimplifiedAuthorDTO;
 import com.book.model.dto.users.UserDTO;
+import com.book.model.dto.users.UserPersonalDataDTO;
 import com.book.model.entity.User;
 import com.book.model.entity.customer.AdminCustomer;
 import com.book.model.entity.customer.AuthorCustomer;
@@ -257,5 +260,43 @@ public class UserService extends BaseService<User, UserDTO, UserConverter, UserR
 		});
 		
 		return authors;
+	}
+	
+	@Transactional
+	public void changePersonalData(Long id, UserPersonalDataDTO data) throws UserManagementException {
+		Optional<User> userOpt = repository.findById(id);
+		User user;
+		if (userOpt.isPresent()) {
+			user = userOpt.get();
+			
+			if (data.getAge() != null) {
+				user.setAge(data.getAge());
+			}
+			if (data.getEmail() != null) {
+				if (!repository.existsUserByEmail(data.getEmail())) {
+					user.setEmail(data.getEmail());					
+				} else {
+					throw new UserManagementException(BodyErrorCode.EMAIL_ALREADY_EXISTS);
+				}
+			}
+			
+			if (data.getUrlImage() != null) {
+				UserCustomer customer = (UserCustomer) user.getCustomer();
+				customer.setUrlImageProfile(data.getUrlImage());
+			}
+			
+		} else {
+			throw new UserManagementException(BodyErrorCode.USER_NOT_EXIST);
+		}
+	}
+
+	public UserPersonalDataDTO getPersonalInfoForChange(Long id) {
+		Optional<User> userOpt = repository.findById(id);
+		UserPersonalDataDTO dto = new UserPersonalDataDTO();
+		
+		dto.setAge(userOpt.get().getAge());
+		dto.setEmail(userOpt.get().getEmail());
+		dto.setUrlImage(((UserCustomer) userOpt.get().getCustomer()).getUrlImageProfile());
+		return dto;
 	}
 }
